@@ -1,0 +1,77 @@
+html {
+  height: 100%;
+}
+body {
+  height: 100%;
+  margin: 0;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+h1,
+h2,
+p,
+form {
+  margin: 0 auto;
+  display: block;
+  font-family: "Josefin Slab", serif;
+  text-align: center;
+  color: #263238;
+}
+h1 {
+  font-size: 2.5rem;
+  padding-top: 30px;
+}
+p {
+  font-size: 20px;
+}
+.button {
+  margin: 20px auto;
+  display: block;
+  font-family: "Josefin Slab", serif;
+  background-color: #00bcd4;
+  color: #ffffff;
+  border: 1px solid #5ee7df;
+  border-radius: 30px;
+  padding: 10px 20px;
+}
+.searchbar {
+  border-radius: 30px;
+  padding: 7px 20px;
+  border: 1px solid #5ee7df;
+  text-align: center;
+}
+.padding50 {
+  padding: 50px;
+}
+.padding80 {
+  padding: 80px;
+}
+.paddingBottom20 {
+  padding-bottom: 20px;
+}
+.paddingBottom30 {
+  padding-bottom: 30px;
+}
+.boxGradient {
+  max-width: 100%;
+  background-image: linear-gradient(to top, #5ee7df 0%, #b490ca 100%);
+  border-radius: 20px;
+  margin: 0 auto;
+  display: block;
+}
+.weatherEmoji {
+  font-size: 80px;
+  line-height: 82px;
+  text-align: center;
+  padding-bottom: 30px;
+}
+.smallerEmoji {
+  font-size: 40px;
+  line-height: 50px;
+  text-align: center;
+  padding-bottom: 30px;
+}
+.units {
+  font-size: 18px;
+  vertical-align: middle;
+}
