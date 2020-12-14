@@ -75,12 +75,16 @@ function formatDayTime(timestamp) {
 // START - Search engine and main temperature
 
 function updateTemperature(response) {
+
+  celsiusTemperature = response.data.main.temp;
+
+
   document.querySelector("#salutation").innerHTML = `Well hello there, ${response.data.name}!`
   // let input = document.querySelector("#searchbar");
   // let heading = document.querySelector("#salutation");
   // heading.innerHTML = `Well hello there, ${input.value}!`;
 
-  document.querySelector("#temperature").innerHTML = Math.round(response.data.main.temp);
+  document.querySelector("#temperature").innerHTML = Math.round(celsiusTemperature);
   // let temperature = Math.round(response.data.main.temp);
   // let currentTemperature = document.querySelector("#temperature");
   // currentTemperature.innerHTML = `${temperature}`;
@@ -119,6 +123,8 @@ function updateTemperature(response) {
   let iconElement = document.querySelector("#icon");
   iconElement.setAttribute("src", `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`);
   iconElement.setAttribute("alt", `${response.data.weather[0].description}`);
+
+  
 }
 
 // function updateTemperatureForecast(response) {
@@ -169,31 +175,56 @@ let currentLocation = document.querySelector("#current-location");
 currentLocation.addEventListener("click", searchLocation);
 
 
-search("Sydney");
+
 
 // END - Weather API
 
 // START - Celcius / Farenheit degrees
 
-function changeToFahrenheit(event) {
-  event.preventDefault();
-
-  let temperatureElement = document.querySelector("#temperature");
-  temperatureElement.innerHTML = 66;
-}
-let fahrenheit = document.querySelector("#fahrenheit");
-fahrenheit.addEventListener("click", changeToFahrenheit);
-
-
-function changeToCelsius(event) {
+function displayFahrenheitTemperature(event) {
   event.preventDefault();
   let temperatureElement = document.querySelector("#temperature");
-  temperatureElement.innerHTML = 20;
+  celsiuslink.classList.remove("active"); //This will remove the active class on the styles so that the celsius link appears black and without the underline
+  fahrenheitlink.classList.add("active"); //This will add the active class on the styles so that the fahrenheit link appears black and without the underline
+  let fahrenheitTemperature = (celsiusTemperature * 9) / 5 + 32;
+  temperatureElement.innerHTML = Math.round(fahrenheitTemperature);
 }
-let celsius = document.querySelector("#celsius");
-celsius.addEventListener("click", changeToCelsius);
+let fahrenheitlink = document.querySelector("#fahrenheit-link");
+fahrenheitlink.addEventListener("click", displayFahrenheitTemperature);
+
+function displayCelsiusTemperature(event) {
+  event.preventDefault();
+  let temperatureElement = document.querySelector("#temperature");
+  celsiuslink.classList.add("active"); //This will add the active class on the styles so that the celsius link appears black and without the underline
+  fahrenheitlink.classList.remove("active"); //This will remove the active class on the styles so that the fahrenheit link appears black and without the underline
+  temperatureElement.innerHTML = Math.round(celsiusTemperature);
+}
+
+let celsiuslink = document.querySelector("#celsius-link");
+celsiuslink.addEventListener("click", displayCelsiusTemperature);
+
+
+let celsiusTemperature = null;
+
+// function changeToFahrenheit(event) {
+//   event.preventDefault();
+
+//   let temperatureElement = document.querySelector("#temperature");
+//   temperatureElement.innerHTML = 66;
+// }
+// let fahrenheit = document.querySelector("#fahrenheit");
+// fahrenheit.addEventListener("click", changeToFahrenheit);
+
+
+// function changeToCelsius(event) {
+//   event.preventDefault();
+//   let temperatureElement = document.querySelector("#temperature");
+//   temperatureElement.innerHTML = 20;
+// }
+// let celsius = document.querySelector("#celsius");
+// celsius.addEventListener("click", changeToCelsius);
 
 // END - Celcius / Farenheit degrees
 
-
+search("Sydney");
 

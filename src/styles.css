@@ -80,3 +80,12 @@ p {
 .smallerText {
   font-size: 18px;
 }
+.active {
+  color: #263238;
+  cursor: default;
+}
+
+.active:hover {
+  color: #263238;
+  text-decoration: none;
+}
