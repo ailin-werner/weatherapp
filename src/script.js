@@ -14,6 +14,24 @@ function formatDate(timestamp) {
 
 function formatDayTime(timestamp) {
   let time = new Date(timestamp);
+//   let hours = time.getHours();
+
+//   if (hours < 10) {
+//     hours = `0${hours}`;
+//   }
+
+//   let minutes = time.getMinutes();
+//   if (minutes < 10) {
+//   minutes = `0${minutes}`;
+// }
+  let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+  let day = days[time.getDay()];
+  return `${day} ${formatHours(timestamp)}`;
+}
+
+function formatHours(timestamp) {
+
+  let time = new Date(timestamp);
   let hours = time.getHours();
 
   if (hours < 10) {
@@ -23,10 +41,9 @@ function formatDayTime(timestamp) {
   let minutes = time.getMinutes();
   if (minutes < 10) {
   minutes = `0${minutes}`;
-}
-  let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-  let day = days[time.getDay()];
-  return `${day} ${hours}:${minutes}`;
+  }
+
+  return `${hours}:${minutes}`;
 }
             // let currentDate = new Date();
 
@@ -134,12 +151,40 @@ function updateTemperature(response) {
 // }
 
 
+function displayForecast(response){
+  let forecastElement = document.querySelector("#forecast");
+  forecastElement.innerHTML = null;
+  let forecast = null;
+
+  for (let index = 0; index < 6; index++) {
+
+  forecast = response.data.list[index];
+    forecastElement.innerHTML += `
+      <div class="col-sm">
+          <p class="paddingBottom50">
+            ${formatHours(forecast.dt * 1000)}
+          <img src="http://openweathermap.org/img/wn/${forecast.weather[0].icon}@2x.png" alt=" " class="smallerIcon" />
+          <strong><span
+              id="day-one-min-temp"
+              >${Math.round(forecast.main.temp_max)}</span
+            >°C</strong> / <span id="day-one-max-temp">${Math.round(forecast.main.temp_min)}</span>°C
+          </p>
+        </div>
+        `;
+  }
+  
+
+  console.log();
+}
 
 function search(city) {
   let apiKey = "3e712c360eb3016685312bd97cac9b63";
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
 
   axios.get(`${apiUrl}`).then(updateTemperature);
+
+  apiUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=metric`;
+  axios.get(`${apiUrl}`).then(displayForecast);
 }
 
 function updateCity(event) {
@@ -227,4 +272,3 @@ let celsiusTemperature = null;
 // END - Celcius / Farenheit degrees
 
 search("Sydney");
-
