@@ -40,8 +40,8 @@
       <button id="current-location" class="button">Current location</button>
       <h1 id="salutation">Well, hello there!</h1>
       <p>
-        <span id="time">Current hour</span><br />
-        <span id="date">Current date</span>
+        <span id="time"></span><br />
+        <span id="date"></span>
       </p>
 
       <div class="row justify-content-center padding80">
@@ -60,7 +60,9 @@
             <span id="current-max"></span>°C
           </p>
         </div>
-        <div class="col-sm weatherEmoji">☀️</div>
+        <div class="col-sm">
+          <img src="" alt=" " id="icon" class="weatherIcon" />
+        </div>
         <div class="col-sm">
           <p>
             <!-- ☔️ Precipitation: <span id="rain"></span>%<br /> -->
@@ -115,7 +117,7 @@
       </div>
 
       <p class="smallerText">
-        <a href="https://github.com/ailin-werner/weatherapp"
+        <a href="https://github.com/ailin-werner/weatherapp" target="_blank"
           >Open-source code</a
         >
         by Ailin Werner

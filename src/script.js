@@ -1,56 +1,74 @@
-
 // START - Time and date section
+function formatDate(timestamp) {
+  let currentDate = new Date(timestamp);
 
-let currentDate = new Date();
+  let date = currentDate.getDate();
+  
+  let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
-let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+  let month = months[currentDate.getMonth()];
 
-let month = months[currentDate.getMonth()];
-
-let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-
-let day = days[currentDate.getDay()];
-
-let date = currentDate.getDate();
-
-let year = currentDate.getFullYear();
-
-let hour = currentDate.getHours();
-
-if (hour < 10) {
-  hour = `0${hour}`;
+  let year = currentDate.getFullYear();
+  return `${date} ${month} ${year}`;
 }
 
-let minutes = currentDate.getMinutes();
+function formatDayTime(timestamp) {
+  let time = new Date(timestamp);
+  let hours = time.getHours();
 
-if (minutes < 10) {
+  if (hours < 10) {
+    hours = `0${hours}`;
+  }
+
+  let minutes = time.getMinutes();
+  if (minutes < 10) {
   minutes = `0${minutes}`;
 }
-
-function currentTime() {
-  let time = document.querySelector("#time");
-  time.innerHTML = `${day} ${hour}:${minutes}`;
+  let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+  let day = days[time.getDay()];
+  return `${day} ${hours}:${minutes}`;
 }
-currentTime();
+            // let currentDate = new Date();
 
-function actualDate() {
-  let displayDate = document.querySelector("#date");
-  displayDate.innerHTML = `${date} ${month} ${year}`;
-}
-actualDate();
+            // let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
+            // let month = months[currentDate.getMonth()];
+
+            // let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+
+            // let day = days[currentDate.getDay()];
+
+            // let date = currentDate.getDate();
+
+            // let year = currentDate.getFullYear();
+
+            // let hour = currentDate.getHours();
+
+            // if (hour < 10) {
+            //   hour = `0${hour}`;
+            // }
+
+            // let minutes = currentDate.getMinutes();
+
+            // if (minutes < 10) {
+            //   minutes = `0${minutes}`;
+            // }
+
+            // function currentTime() {
+            //   let time = document.querySelector("#time");
+            //   time.innerHTML = `${day} ${hour}:${minutes}`;
+            // }
+            // currentTime();
+
+            // function actualDate() {
+            //   let displayDate = document.querySelector("#date");
+            //   displayDate.innerHTML = `${date} ${month} ${year}`;
+            // }
+            // actualDate();
 // END - Time and date section
 
 // START - Forcast days
-let dayOne = days[currentDate.getDay() + 1];
-let dayTwo = days[currentDate.getDay() + 2];
-let dayThree = days[currentDate.getDay() + 3];
-let dayFour = days[currentDate.getDay() + 4];
-let dayFive = days[currentDate.getDay() + 5];
-console.log(dayOne);
-console.log(dayTwo);
-console.log(dayThree);
-console.log(dayFour);
-console.log(dayFive);
+
 
 // END - Forcast days
 
@@ -91,6 +109,16 @@ function updateTemperature(response) {
   // let wind = Math.round(response.data.wind.speed);
   // let currentWind = document.querySelector("#wind");
   // currentWind.innerHTML = `${wind}`;
+  
+  let dateElement = document.querySelector("#date");
+  dateElement.innerHTML = formatDate(response.data.dt * 1000);
+
+  let timeElement = document.querySelector("#time");
+  timeElement.innerHTML = formatDayTime(response.data.dt * 1000);
+
+  let iconElement = document.querySelector("#icon");
+  iconElement.setAttribute("src", `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`);
+  iconElement.setAttribute("alt", `${response.data.weather[0].description}`);
 }
 
 // function updateTemperatureForecast(response) {
@@ -127,8 +155,6 @@ form.addEventListener("submit", updateCity);
 function getLocation(position) {
   let latitude = position.coords.latitude;
   let longitude = position.coords.longitude;
-  console.log(latitude);
-  console.log(longitude);
   let apiKey = "3e712c360eb3016685312bd97cac9b63";
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=metric`;
 
@@ -143,7 +169,7 @@ let currentLocation = document.querySelector("#current-location");
 currentLocation.addEventListener("click", searchLocation);
 
 
-search("New York");
+search("Sydney");
 
 // END - Weather API
 
