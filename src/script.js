@@ -139,17 +139,8 @@ function updateTemperature(response) {
 
   let iconElement = document.querySelector("#icon");
   iconElement.setAttribute("src", `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`);
-  iconElement.setAttribute("alt", `${response.data.weather[0].description}`);
-
-  
+  iconElement.setAttribute("alt", `${response.data.weather[0].description}`); 
 }
-
-// function updateTemperatureForecast(response) {
-//   let maxTempForecast = Math.round(response.data.main.list.temp.max);
-//   let maximumForecastTemp = document.querySelector("#forecast-current-max");
-//   maximumForecastTemp.innerHTML = `${maxTempForecast}`;
-// }
-
 
 function displayForecast(response){
   let forecastElement = document.querySelector("#forecast");
@@ -192,8 +183,6 @@ function updateCity(event) {
     let city = document.querySelector("#searchbar").value;
     
     search(city);
-    // let apiUrlOtherdays = `https://api.openweathermap.org/data/2.5/forecast/daily?q=${city}&cnt=1&appid=${apiKey}&units=metric`;
-    // axios.get(`${apiUrlOtherdays}`).then(updateTemperatureForecast);
 }
 
 let form = document.querySelector("#form-search");
@@ -202,15 +191,16 @@ form.addEventListener("submit", updateCity);
 //END - Search engine and main temperature
 
 // START - Weather API
-
 function getLocation(position) {
   let latitude = position.coords.latitude;
   let longitude = position.coords.longitude;
   let apiKey = "3e712c360eb3016685312bd97cac9b63";
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=metric`;
-
   axios.get(`${apiUrl}`).then(updateTemperature);
+  apiUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=metric`;
+  axios.get(`${apiUrl}`).then(displayForecast);
 }
+
 function searchLocation(event){
   event.preventDefault();
 navigator.geolocation.getCurrentPosition(getLocation);
@@ -271,4 +261,4 @@ let celsiusTemperature = null;
 
 // END - Celcius / Farenheit degrees
 
-search("Sydney");
+search("New York");
