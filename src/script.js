@@ -261,4 +261,4 @@ let celsiusTemperature = null;
 
 // END - Celcius / Farenheit degrees
 
-search("New York");
+search("Sydney");
